@@ -3,7 +3,7 @@ Instituto de Ciencias Exatas
 Departamento de Ciencia da Computacao
 Estrutura de Dados – 1/2017
 
-Alunos: João Ricardo Ferreira Costa, Rafael Martins Diniz
+Alunos: João Ricardo Ferreira Costa , Rafael Martins Diniz
 Turma: B
 
 Descricao: Trabalho Obrigatorio 02 -- Simulação de uma agenda telefônica. */
