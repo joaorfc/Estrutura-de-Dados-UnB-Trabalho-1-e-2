@@ -1,14 +1,14 @@
 /*Universidade de Brasilia
 Instituto de Ciencias Exatas
 Departamento de Ciencia da Computacao
-Algoritmos e Programação de Computadores – 1/2017
+Estrutura de Dados â€“ 1/2017
 
-Alunos: João Ricardo Ferreira Costa, Rafael Martins Diniz
+Alunos: JoÃ£o Ricardo Ferreira Costa, Rafael Martins Diniz
 Turma: B
 
-Descricao: Trabalho Obrigatorio 02 -- Simulação de uma agenda telefônica. */
+Descricao: Trabalho Obrigatorio 02 -- SimulaÃ§Ã£o de uma agenda telefÃ´nica. */
 
-#include <string.h>
+#include <stdlib.h>
 #include <conio.h>
 #include <stdio.h>
 #include <string.h>
@@ -23,26 +23,30 @@ struct agenda {
 
 int aux=0;
 
+
 void menu();
 void cadastrar(int cod, int pos);
 void consultar();
 void mostrar_lista();
 int verifica_pos();
 void ordenaNomes();
+void instrucoes();
 void zerar();
 int verifica_cod(int cod);
 void excluir();
 
-main() {
+int main() {
 
     zerar();
+    instrucoes();
 
     int op=0, retorno, temp , posicao;
 
-    while(op!=5){
+    while(op!=6){
         menu();
         printf("\n  > DIGITE A OPCAO DESEJADA:  ");
         scanf("%d",&op);
+        system("cls");
         fflush(stdin);
         switch(op) {
             case 1: {                  // FUNCAO PARA CADASTRAR UM NOVO USUARIO
@@ -78,6 +82,11 @@ main() {
             break;
             }
             case 5: {
+                printf("\n\n >> LISTA DE CONTATOS ORDENADA\n\n");
+                ordenaNomes();
+            break;
+            }
+            case 6: {
                 printf("\n\nSAINDO...\n\n");
             }
 
@@ -94,7 +103,8 @@ void menu(){
     printf("                    [2] - CONSULTAR CONTATO\n\n");
     printf("                    [3] - EXCLUIR CONTATO\n\n");
     printf("                    [4] - MOSTRAR LISTA DE CONTATOS\n\n");
-    printf("                    [5] - SAIR \n\n ");
+    printf("                    [5] - ORDENAR LISTA DE CONTATOS\n\n");
+    printf("                    [6] - SAIR \n\n ");
 }
 
 void cadastrar(int cod, int pos) {
@@ -119,7 +129,7 @@ void cadastrar(int cod, int pos) {
 
 void consultar() {
     int i=0, cod;
-    //A VARIAVEL "i" FUNCIONA COMO UM CONTADOR. ELA É MAIS UTILIZADA DENTRO DE UM LOOP "FOR", NO ENTANTO EU TIVE PROBLEMAS COM O FOR E USEI ELA EM UM LOOP "WHILE".
+    //A VARIAVEL "i" FUNCIONA COMO UM CONTADOR. ELA Ã‰ MAIS UTILIZADA DENTRO DE UM LOOP "FOR", NO ENTANTO EU TIVE PROBLEMAS COM O FOR E USEI ELA EM UM LOOP "WHILE".
     printf("\n >>  CONSULTAR CONTATO\n");
 
 
@@ -153,8 +163,6 @@ void mostrar_lista(){
         i++;
     }
 
-    ordenaNomes();
-
     for(cont=0;cont<aux;cont++){
         if(registros[cont].vazio==1){
             printf("\nNome: %s\n", registros[cont].nome);
@@ -164,7 +172,7 @@ void mostrar_lista(){
 }
 
 void ordenaNomes(){
-    int i,j;
+    int i,j,cont;
     char aux2[30];
 
 
@@ -177,6 +185,12 @@ void ordenaNomes(){
                 }
             }
        }
+
+       for(cont=0;cont<aux;cont++){
+            if(registros[cont].vazio==1){
+                printf("\nNome:%s\n", registros[cont].nome);
+            }
+        }
 
 }
 
@@ -206,6 +220,13 @@ int verifica_cod(int cod) {
     i++;
 }
     return(1);
+}
+
+void instrucoes(){
+    printf(" \n\n>> INSTRUCOES DE USO:\n\n");
+    printf(" - Todo contato deve possuir um codigo.\n");
+    printf(" - Sua agenda deve ter, no maximo, 100 contatos.\n");
+    printf(" - Seus contatos devem possuir um nome, um telefone e um e-mail.\n");
 }
 
 void excluir() {
