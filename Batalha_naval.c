@@ -1,11 +1,11 @@
 /*Universidade de Brasilia
 Instituto de Ciencias Exatas
 Departamento de Ciencia da Computacao
-Algoritmos e ProgramaÁ„o de Computadores ñ 1/2017
-Alunos: Lucas da Silva Souza, Jo„o Ricardo Ferreira Costa
+Estrutura de Dados ‚Äì 1/2017
+Alunos: Lucas da Silva Souza, Jo√£o Ricardo Ferreira Costa
 Matriculas: 16/0013020 e 16/0009936
 Turma: B
-Vers„o do compilador: GCC 4.7.1
+Vers√£o do compilador: GCC 4.7.1
 Descricao: Trabalho Obrigatorio 01.
 Jogo de Batalha Naval entre dois players. */
 
@@ -13,22 +13,22 @@ Jogo de Batalha Naval entre dois players. */
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#define A 10 /*Mude este valor para mudar o tamanho do mapa. O padr„o deste valor È 10, o que significa um mapa de tamanho 10 x 10*/
+#define A 10 /*Mude este valor para mudar o tamanho do mapa. O padr√£o deste valor √© 10, o que significa um mapa de tamanho 10 x 10*/
 
 int fatorMult = A * A;
-float maxEspeciais = 0.35; //Um mÌnimo de 12% de veÌculos (carros, cargueiros, etc) deve ser gerado ou ent„o o gerador ir· tentar novamente.
+float maxEspeciais = 0.35; //Um m√≠nimo de 12% de ve√≠culos (carros, cargueiros, etc) deve ser gerado ou ent√£o o gerador ir√° tentar novamente.
 
 typedef struct Dados {
     int revelados;
     int EspeciaisGerados;
-    int posicoes[A][A]; //Esta variavel ir· guardar o "mapa" deste jogador.
+    int posicoes[A][A]; //Esta variavel ir√° guardar o "mapa" deste jogador.
     int visualizado[A][A];
     int ultX;
     int ultY;
 } _Info;
 
 /*IDs dos objetos no mapa:
-1 = Objeto nulo / EspaÁo vazio
+1 = Objeto nulo / Espa√ßo vazio
 2 = Submarino (2 partes)
 -> 21 = Submarino base
 -> 22 = Submarino parte 2
@@ -55,7 +55,7 @@ int TamanhoProp(int propID) {
     return tamanhoProp;
 }
 
-struct Dados gerarBordas(struct Dados entrada) { //Assim as embarcaÁıes n„o poder„o colidir.
+struct Dados gerarBordas(struct Dados entrada) { //Assim as embarca√ß√µes n√£o poder√£o colidir.
     struct Dados teste = entrada;
     for(int X = 0; X < A; X++) {
         for(int Y = 0; Y < A; Y++) {
@@ -103,7 +103,7 @@ struct Dados gerarMapa(int ID) {
                 continue;
             int num = rand() % (9 + 1);
             if(num >= 0 && num <= 5)
-                retorno.posicoes[X][Y] = 1; //Gerar um espaÁo vazio neste quadrado.
+                retorno.posicoes[X][Y] = 1; //Gerar um espa√ßo vazio neste quadrado.
             else {
                 if(verificarSpawn(retorno, num, X, Y) == 1) {
                     if(num == 6) {
@@ -137,7 +137,7 @@ struct Dados gerarMapa(int ID) {
     for(int X = 0; X < A; X++)
         for(int Y = 0; Y < A; Y++)
             if(retorno.posicoes[X][Y] == -1)
-                retorno.posicoes[X][Y] = 1; //Converte os espaÁos pulados (Devido as bordas) em espaÁos vazios, aceitos por funÁıes.
+                retorno.posicoes[X][Y] = 1; //Converte os espa√ßos pulados (Devido as bordas) em espa√ßos vazios, aceitos por fun√ß√µes.
     if(retorno.EspeciaisGerados > (maxEspeciais * fatorMult))
         retorno = gerarMapa(ID);
     return retorno;
