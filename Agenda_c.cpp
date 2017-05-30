@@ -2,10 +2,8 @@
 Instituto de Ciencias Exatas
 Departamento de Ciencia da Computacao
 Estrutura de Dados – 1/2017
-
 Alunos: João Ricardo Ferreira Costa , Rafael Martins Diniz
 Turma: B
-
 Descricao: Trabalho Obrigatorio 02 -- Simulação de uma agenda telefônica. */
 
 #include <stdlib.h>
@@ -14,7 +12,7 @@ Descricao: Trabalho Obrigatorio 02 -- Simulação de uma agenda telefônica. */
 #include <string.h>
 
 struct agenda {
-       int cod;
+       int cod; //ESSA VARIAVEL É UM CODIGO QUE ACESSA A POSIÇÃO DO CONTATO NA LISTA. A PARTIR DELA, PODE-SE ACESSAR/MODIFICAR/CONSULTAR QUALQUER DADO DE UM CONTATO ATRAVÉS DO CÓDIGO DE ACESSO.
        char nome[30];
        char email[50];
        int tel;
@@ -27,6 +25,7 @@ int aux=0;
 void menu();
 void cadastrar(int cod, int pos);
 void consultar();
+void editar();
 void mostrar_lista();
 int verifica_pos();
 void ordenaNomes();
@@ -38,14 +37,21 @@ void excluir();
 int main() {
 
     zerar();
+    printf("\n");
     instrucoes();
 
     int op=0, retorno, temp , posicao;
 
-    while(op!=6){
+    while(op!=7){
         menu();
         printf("\n  > DIGITE A OPCAO DESEJADA:  ");
-        scanf("%d",&op);
+        scanf("%d", &op);
+
+        if(op > 7 || op <= 0){
+            printf("\n\n OPCAO INVALIDA!\n DIGITE A OPCAO DESEJADA:   \n\n");
+            scanf("%d", &op);
+        }
+
         system("cls");
         fflush(stdin);
         switch(op) {
@@ -71,29 +77,37 @@ int main() {
             break;
             }
 
-            case 3: {          //FUNCAO PARA EXCLUIR UM USUARIO JA CADASTRADO
-                excluir();
+            case 3: {          //FUNCAO PARA EDITAR UM USUARIO JA CADASTRADO
+                editar();
             break;
             }
 
             case 4: {
-                printf("\n >> LISTA DE CONTATOS\n");
+                printf("\n >> EXCLUIR CONTATO\n");
+                excluir();
+            break;
+            }
+
+            case 5: {
+                printf("\n\n >> LISTA DE CONTATOS\n\n");
                 mostrar_lista();
             break;
             }
-            case 5: {
+
+            case 6: {
                 printf("\n\n >> LISTA DE CONTATOS ORDENADA\n\n");
                 ordenaNomes();
             break;
             }
-            case 6: {
-                printf("\n\nSAINDO...\n\n");
+
+            case 7: {
+                printf("\n\nSAINDO....\n\n");
+            break;
             }
-
         }
-}
+    }
 
-getch();
+    getch();
 }
 
 void menu(){
@@ -101,10 +115,11 @@ void menu(){
 
     printf("                    [1] - CADASTRAR NOVO CONTATO\n\n");
     printf("                    [2] - CONSULTAR CONTATO\n\n");
-    printf("                    [3] - EXCLUIR CONTATO\n\n");
-    printf("                    [4] - MOSTRAR LISTA DE CONTATOS\n\n");
-    printf("                    [5] - ORDENAR LISTA DE CONTATOS\n\n");
-    printf("                    [6] - SAIR \n\n ");
+    printf("                    [3] - EDITAR CONTATO\n\n");
+    printf("                    [4] - EXCLUIR CONTATO\n\n");
+    printf("                    [5] - MOSTRAR LISTA DE CONTATOS\n\n");
+    printf("                    [6] - ORDENAR LISTA DE CONTATOS\n\n");
+    printf("                    [7] - SAIR \n\n ");
 }
 
 void cadastrar(int cod, int pos) {
@@ -148,9 +163,42 @@ void consultar() {
         }
         i++;
     }
+    
     if(registros[i].cod!=cod){
             printf("\nOPS, ESSE CODIGO NAO FOI ENCONTRADO!\n");
         }
+}
+
+void editar(){
+    int i=0, cod;
+
+    printf(" \n>> EDITAR CONTATO\n");
+
+    printf("\n Informe o codigo do contato:");
+    scanf("%d", &cod);
+    getchar();
+
+    while(i<=100) {
+        if(registros[i].cod==cod){
+            if(registros[i].vazio==1){
+                printf("\nDigite o novo nome:\n\n");
+                scanf("%[^\n]s", registros[i].nome);
+                getchar();
+                printf("Digite o novo telefone:\n\n");
+                scanf("%d",&registros[i].tel);
+                getchar();
+                printf("Digite o novo e-mail:\n\n");
+                scanf("%[^\n]s", registros[i].email);
+                getchar();
+                break;
+            }
+        }
+        i++;
+    }
+
+    if(registros[i].cod!=cod){
+        printf("\nOPS, ESSE CODIGO NAO FOI ENCONTRADO!\n");
+    }
 }
 
 void mostrar_lista(){
